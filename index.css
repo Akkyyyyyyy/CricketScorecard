@@ -1,0 +1,363 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #f7f9fc;  /* Very light blue-gray background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.scoreboard {
+    background: #ffffff;  /* Clean white background */
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);  /* Softer shadow for modern look */
+    width: 100%;
+    max-width: 700px;  /* Suitable max width for content */
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #dfe3e8;  /* Light border for distinction */
+    box-sizing: border-box;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.scoreboard:hover {
+    transform: scale(1.02);  /* Slightly increase size on hover */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);  /* Enhance shadow on hover */
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.title h1 {
+    font-size: 24px;
+    color: #344955;  /* Dark gray for good contrast */
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.title a {
+    height: 40px;
+    background: #546e7a;  /* Vibrant purple for modern look */
+    color: white;
+    border: none;
+    border-radius: 20px;  /* More rounded for modern aesthetics */
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title a:hover {
+    background: #455a64;  /* Slightly darker on hover */
+    transform: translateY(-3px);  /* Lift effect on hover */
+}
+
+.title a:active {
+    background: #37474f;
+    transform: translateY(0);
+}
+
+/* Scoreboard Headers */
+.scoreboard h4,
+.scoreboard h6 {
+    margin: 15px 0;
+    color: #344955;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.scoreboard h4 {
+    font-size: 20px;
+}
+
+.scoreboard h6 {
+    font-size: 16px;
+}
+
+/* Teams Section */
+.teams {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.team {
+    flex: 1 1 45%;  /* Flexible width */
+    background: #f1f3f4;  /* Light background for team section */
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.team:hover {
+    transform: scale(1.05);  /* Enlarge slightly on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.team h2 {
+    font-size: 18px;
+    color: #2c3e50;  /* Darker color for text */
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.details {
+    font-size: 20px;
+    color: #344955;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.details span {
+    margin: 0 5px;
+}
+
+.details .runs,
+.details .wickets,
+.details .overs,
+.details .balls {
+    color: #0277bd;  /* Bright red for emphasis */
+    font-size: 24px;  /* Slightly larger font size */
+    font-weight: 700;
+}
+
+/* Controls Section */
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+button {
+    background: #546e7a;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 150px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+button:hover {
+    background: #455a64;
+    transform: translateY(-2px);
+}
+
+button:active {
+    background: #37474f;
+    transform: translateY(0);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.5);
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    
+
+    .title h1 {
+        font-size: 20px;  /* Smaller font size for mobile */
+    }
+
+    .title a {
+        
+        margin-top: 10px;  /* Margin for spacing */
+    }
+
+    .team {
+        flex: 1 1 100%;
+        margin: 10px 0;
+    }
+
+    button {
+        font-size: 14px;  /* Smaller font size for mobile */
+        padding: 10px;  /* Adjust padding */
+    }
+
+
+    .details .runs,
+    .details .wickets,
+    .details .overs,
+    .details .balls {
+        font-size: 20px;  /* Adjust font size for mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .title h1 {
+        font-size: 18px;  /* Smaller font size for small screens */
+    }
+    .teams{
+        flex-direction: column;
+    }
+    .details .runs,
+    .details .wickets,
+    .details .overs,
+    .details .balls {
+        font-size: 18px;  /* Adjust font size for smaller screens */
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;  /* Full width buttons on small screens */
+        max-width: 100%;
+        margin: 5px 0;  /* Margin for spacing */
+    }
+}
+
+  /* Modal background */
+/* Modal background styling */
+.modal {
+    display: block; /* Ensure the modal is visible on load */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    animation: fadeIn 0.3s ease-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal content styling */
+.modal-content {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease-out;
+    text-align: center;
+}
+
+/* Modal heading */
+.modal-content h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Label styling */
+.modal-content label {
+    display: block;
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+/* Input styling */
+.modal-content input[type="text"],
+.modal-content input[type="number"] {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+/* Radio button group styling */
+.radio-group {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+/* Radio button labels */
+.radio-group label {
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    color: #333;
+}
+
+/* Radio button inputs */
+.radio-group input[type="radio"] {
+    margin-right: 8px;
+}
+
+/* Button styling */
+.modal-content button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: #fff;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+.modal-content button:hover {
+    background-color: #218838;
+}
+
+/* Animation: Fade in effect */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Animation: Slide in effect */
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
