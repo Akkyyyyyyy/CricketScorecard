@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Scoreboard</title>
+    <script src="jquery-3.6.3.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="scoreboard">
+        <div class="title">
+            <h1 class="match">Cricket Scoreboard</h1>
+            <a href="">Restart</a>
+        </div>
+        <h4 class="target"></h4>
+        <h6 class="need"></h6>
+        <h6 class="rr"></h6>
+        <h6 class="rrr"></h6>
+        <div class="teams">
+            <div class="team" id="team-a">
+                <h2 class="team-name">team-a</h2>
+                <div class="details">
+                    <span class="runs">00</span>
+                    <span class="">/</span>
+                    <span class="wickets">0</span>
+                    <span class="">(</span><span class="overs">0</span>.<span class="balls">0</span><span
+                        class="">)</span>
+                </div>
+            </div>
+            <div class="team" id="team-b">
+                <h2 class="team-name">team-b</h2>
+                <div class="details">
+                    <span class="runs">00</span>
+                    <span class="">/</span>
+                    <span class="wickets">0</span>
+                    <span class="">(</span><span class="overs">0</span>.<span class="balls">0</span><span class="">)</span>
+                </div>
+            </div>
+        </div>
+        <div class="controls">
+            <button class="zero-btn">Dot Ball</button>
+            
+            <button class="one-btn">1 Run</button>
+            <button class="two-btn">2 Run</button>
+            <button class="three-btn">3 Run</button>
+            <button class="four-btn">4 Runs</button>
+            <button class="five-btn">5 Run</button>
+            <button class="six-btn">6 Runs</button>
+            <button class="wicket-btn">Wicket</button>
+            <button class="wide-btn">Wide</button>
+            <button class="no-btn">No Ball</button>
+        </div>
+      
+        </div>
+        <div id="setupModal" class="modal">
+            <div class="modal-content">
+                <h2>Set Up the Game</h2>
+                <form id="setupForm">
+                    <label for="teamAName">Batting Team:</label>
+                    <input type="text" id="teamAName" name="teamAName" required maxlength="10">
+                    <label for="teamBName">Bowling Team:</label>
+                    <input type="text" id="teamBName" name="teamBName" required maxlength="10">
+                    <label for="totalOvers">Total Overs:</label>
+                    <div class="radio-group">
+                        <label for="oneOver">
+                            <input type="radio" id="oneOver" name="totalOvers" value="1" required>1 Over
+                        </label>
+                        <label for="twoOvers">
+                            <input type="radio" id="twoOvers" name="totalOvers" value="2" required>2 Overs
+                        </label>
+                        <label for="fiveOvers">
+                            <input type="radio" id="fiveOvers" name="totalOvers" value="5" required>5 Overs
+                        </label>
+                        <label for="tenOvers">
+                            <input type="radio" id="tenOvers" name="totalOvers" value="10" required>10 Overs
+                        </label>
+                    </div>
+                    <button type="submit">Start</button>
+                </form>
+            </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var currentTeam = 'a';
+            $('.scoreboard').hide();
+            $('button').click(function(){
+            
+            });
+            
+            
+            
+            $('#setupModal').show();
+
+            var teamAName,teamBName;
+            $('#setupForm').submit(function (event) {
+                event.preventDefault();
+                teamAName = $('#teamAName').val();
+                teamBName = $('#teamBName').val();
+                const totalOvers = $('input[name="totalOvers"]:checked').val();
+
+                $('#team-a .team-name').text(teamAName);
+                $('#team-b .team-name').text(teamBName);
+
+                window.totalOvers = totalOvers;
+                $('.title .match').text(teamAName +" VS "+ teamBName+ "("+ window.totalOvers +" Overs)")
+                $('#setupModal').hide();
+                $('.scoreboard').show();
+            });
+            var ballsRemaining;
+            var noBall = false;
+            function addBall(overs, balls) {
+
+                if(currentTeam=='a'){
+                    var runs = $('#team-a .runs');
+                    var overs = $('#team-a .overs');
+                    var balls = $('#team-a .balls');
+                }else{
+                    var runs = $('#team-b .runs');
+                    var overs = $('#team-b .overs');
+                    var balls = $('#team-b .balls');
+                }
+                var rrRuns = parseInt(runs.text()) || 0;
+            var rrBalls = parseInt(balls.text()) || 0;
+            var rrOvers = parseInt(overs.text()) || 0;
+            var rrTotalBalls = rrOvers*6 + rrBalls +1
+            var rr = rrRuns/rrTotalBalls * 6 || 0;
+            // console.log("runs :"+ rrRuns);
+            // console.log("balls :"+ rrTotalBalls);
+            $('.rr').text("Current Runrate: " + rr);
+
+                var totalOvers = window.totalOvers;
+                var currentBalls = parseInt(balls.text()) || 0;
+                var currentOvers = parseInt(overs.text()) || 0;
+                var flag=false;
+                
+
+                if (noBall == true ){
+                    if(currentTeam=='a'){
+                        noBall = false;
+                    }
+                }
+                else{
+                    if (currentBalls + 1 === 6) {
+                        overs.text(currentOvers + 1);
+                        balls.text(0);
+                    }
+                    else {
+                        balls.text(currentBalls + 1);
+
+                    }
+                }
+                var runs = $('#team-a .runs');
+                var target = parseInt(runs.text()) + 1 || 0;
+                //if ((currentOvers === totalOvers - 1 && currentBalls === 5)  ) {
+                // console.log(overs.text()+'overs');
+                // console.log(balls.text()+'balls');
+                // console.log("("+overs.text() +" === "+ totalOvers +" && "+ balls.text()+" === "+ 0 +")");
+                    if ((overs.text() == totalOvers && balls.text() == 0)  ) {
+                    if (currentTeam === 'b') {
+                        ballsRemaining = 1;
+                    } else {
+                        currentTeam = 'b';
+                        currentOvers = 0;
+                        currentBalls = 0;
+                        ballsRemaining = totalOvers * 6 + 1
+                        $('.target').text("Target: " + target);
+                    }
+                }
+                
+                wickets = $('#team-a .wickets');
+                wicket = $('#team-b .wickets');
+                var currentWicket = parseInt(wicket.text()) || 0;
+                var currentWickets = parseInt(wickets.text()) || 0;
+                if (currentWickets === 10 && currentTeam === 'a') {
+                    currentTeam = 'b';
+                    currentOvers = 0;
+                    currentBalls = 0;
+                    ballsRemaining = totalOvers * 6 + 1
+                }
+                
+                
+                if (currentTeam === 'b') {
+                    const teamBRuns = $('#team-b .runs');
+                    const runChase = parseInt(teamBRuns.text()) || 0;
+                    const remainingRuns = target - runChase;
+                    if (noBall === false) {
+                        ballsRemaining = ballsRemaining - 1;
+                    } else {
+                        noBall = false
+                    }
+
+                    console.log("runs :"+ runChase);
+            console.log("balls :"+ ballsRemaining);
+                    const rrr = remainingRuns/ballsRemaining * 6
+                    $('.rrr').text("Required Runrate: " + rrr);
+                    // console.log("currentOvers" + currentOvers + ",ballsRemaining" + ballsRemaining);
+                    $('.need').text(remainingRuns + ' runs from ' + ballsRemaining + ' balls');
+                    if (remainingRuns <= 0 && ballsRemaining >= 0) {
+                        wickets = $('#team-b .wickets');
+                        var currentWickets = 10 - parseInt(wickets.text()) || 0;
+                        $('.need').text(teamBName+' won by ' + currentWickets + ' wickets');
+                        $('.controls, .rr, .rrr').css('display', 'none');
+                        
+                        
+                    }
+                    else if (remainingRuns === 1 && ballsRemaining === 0) {
+                        $('.need').text('Draw!!!');
+                        $('.controls, .rr, .rrr').css('display', 'none');
+                    }
+                    else if (ballsRemaining < 1 && remainingRuns >= 2) {
+                        var Run = remainingRuns - 1;
+                        $('.need').text(teamAName+' won by ' + Run + ' runs');
+                        $('.controls, .rr, .rrr').css('display', 'none');
+                    }
+                    else if (currentWicket === 10) {
+                        var Run = remainingRuns - 1;
+                        $('.need').text(teamAName+' won by ' + Run + ' runs');
+                        $('.controls, .rr, .rrr').css('display', 'none');
+                    }
+                }
+
+            }
+            
+
+            $('.zero-btn').click(function () {
+                if (currentTeam === 'a') {
+                    overs = $('#team-a .overs');
+                    balls = $('#team-a .balls');
+                } else {
+                    overs = $('#team-b .overs');
+                    balls = $('#team-b .balls');
+                }
+
+                addBall(overs, balls)
+            });
+            $('.wide-btn').click(function () {
+                if (currentTeam === 'a') {
+                    runs = $('#team-a .runs');
+                } else {
+                    runs = $('#team-b .runs');
+                }
+                var currentRuns = parseInt(runs.text()) || 0;
+                runs.text(currentRuns + 1);
+                
+            });
+            $('.wicket-btn').click(function () {
+                if (currentTeam === 'a') {
+                    wickets = $('#team-a .wickets');
+                    overs = $('#team-a .overs');
+                    balls = $('#team-a .balls');
+                } else {
+                    wickets = $('#team-b .wickets');
+                    overs = $('#team-b .overs');
+                    balls = $('#team-b .balls');
+                }
+                var currentWickets = parseInt(wickets.text()) || 0;
+                wickets.text(currentWickets + 1);
+
+                addBall(overs, balls)
+            });
+
+            $('.no-btn').click(function () {
+                var runs;
+                if (currentTeam === 'a') {
+                    runs = $('#team-a .runs');
+                    overs = $('#team-a .overs');
+                    balls = $('#team-a .balls');
+                } else {
+                    runs = $('#team-b .runs');
+                    overs = $('#team-b .overs');
+                    balls = $('#team-b .balls');
+                }
+                var currentRuns = parseInt(runs.text()) || 0;
+                runs.text(currentRuns + 1);
+                noBall = true;
+                // addBall(overs, balls)
+
+            });
+            $('.one-btn').click(function () {
+                var runs;
+                if (currentTeam === 'a') {
+                    runs = $('#team-a .runs');
+                    overs = $('#team-a .overs');
+                    balls = $('#team-a .balls');
+                } else {
+                    runs = $('#team-b .runs');
+                    overs = $('#team-b .overs');
+                    balls = $('#team-b .balls');
+                }
+                var currentRuns = parseInt(runs.text()) || 0;
+                runs.text(currentRuns + 1);
+                addBall(overs, balls)
+            });
+            $('.two-btn').click(function () {
+                var runs;
+                if (currentTeam === 'a') {
+                    runs = $('#team-a .runs');
+                    overs = $('#team-a .overs');
+                    balls = $('#team-a .balls');
+                } else {
+                    runs = $('#team-b .runs');
+                    overs = $('#team-b .overs');
+                    balls = $('#team-b .balls');
+                }
+                var currentRuns = parseInt(runs.text()) || 0;
+                runs.text(currentRuns + 2);
+                addBall(overs, balls)
+            });
+            $('.three-btn').click(function () {
+                var runs;
+                if (currentTeam === 'a') {
+                    runs = $('#team-a .runs');
+                    overs = $('#team-a .overs');
+                    balls = $('#team-a .balls');
+                } else {
+                    runs = $('#team-b .runs');
+                    overs = $('#team-b .overs');
+                    balls = $('#team-b .balls');
+                }
+                var currentRuns = parseInt(runs.text()) || 0;
+                runs.text(currentRuns + 3);
+                addBall(overs, balls)
+            });
+            $('.four-btn').click(function () {
+                var runs;
+                if (currentTeam === 'a') {
+                    runs = $('#team-a .runs');
+                    overs = $('#team-a .overs');
+                    balls = $('#team-a .balls');
+                } else {
+                    runs = $('#team-b .runs');
+                    overs = $('#team-b .overs');
+                    balls = $('#team-b .balls');
+                }
+                var currentRuns = parseInt(runs.text()) || 0;
+                runs.text(currentRuns + 4);
+
+                addBall(overs, balls)
+            });
+            $('.five-btn').click(function () {
+                var runs;
+                if (currentTeam === 'a') {
+                    runs = $('#team-a .runs');
+                    overs = $('#team-a .overs');
+                    balls = $('#team-a .balls');
+                } else {
+                    runs = $('#team-b .runs');
+                    overs = $('#team-b .overs');
+                    balls = $('#team-b .balls');
+                }
+                var currentRuns = parseInt(runs.text()) || 0;
+                runs.text(currentRuns + 5);
+                addBall(overs, balls)
+            });
+            $('.six-btn').click(function () {
+                
+                var runs;
+                if (currentTeam === 'a') {
+                    runs = $('#team-a .runs');
+                    overs = $('#team-a .overs');
+                    balls = $('#team-a .balls');
+                } else {
+                    runs = $('#team-b .runs');
+                    overs = $('#team-b .overs');
+                    balls = $('#team-b .balls');
+                }
+                    
+                var currentRuns = parseInt(runs.text()) || 0;
+                runs.text(currentRuns + 6);
+                
+                addBall(overs, balls)
+
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
