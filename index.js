@@ -178,7 +178,7 @@ $(document).ready(function () {
     });
 
     $('.no-btn').click(function () {
-        var runs;
+        
         if (currentTeam === 'a') {
             runs = $('#team-a .runs');
             overs = $('#team-a .overs');
@@ -195,7 +195,7 @@ $(document).ready(function () {
 
     });
     $('.one-btn').click(function () {
-        var runs;
+        
         if (currentTeam === 'a') {
             runs = $('#team-a .runs');
             overs = $('#team-a .overs');
@@ -210,7 +210,7 @@ $(document).ready(function () {
         addBall(overs, balls)
     });
     $('.two-btn').click(function () {
-        var runs;
+        
         if (currentTeam === 'a') {
             runs = $('#team-a .runs');
             overs = $('#team-a .overs');
@@ -225,7 +225,7 @@ $(document).ready(function () {
         addBall(overs, balls)
     });
     $('.three-btn').click(function () {
-        var runs;
+        
         if (currentTeam === 'a') {
             runs = $('#team-a .runs');
             overs = $('#team-a .overs');
@@ -240,7 +240,7 @@ $(document).ready(function () {
         addBall(overs, balls)
     });
     $('.four-btn').click(function () {
-        var runs;
+        
         if (currentTeam === 'a') {
             runs = $('#team-a .runs');
             overs = $('#team-a .overs');
@@ -256,7 +256,7 @@ $(document).ready(function () {
         addBall(overs, balls)
     });
     $('.five-btn').click(function () {
-        var runs;
+        
         if (currentTeam === 'a') {
             runs = $('#team-a .runs');
             overs = $('#team-a .overs');
@@ -272,7 +272,7 @@ $(document).ready(function () {
     });
     $('.six-btn').click(function () {
         
-        var runs;
+        
         if (currentTeam === 'a') {
             runs = $('#team-a .runs');
             overs = $('#team-a .overs');
